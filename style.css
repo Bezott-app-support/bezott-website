@@ -120,6 +120,19 @@ header {
   gap: 0.25rem;
   align-items: center;
   text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* ALIGNEMENT MOBILE - Assurer que le countdown est aligné avec le texte */
+@media (max-width: 768px) {
+  .countdown {
+    display: inline-flex !important;
+    align-items: center !important;
+    vertical-align: middle !important;
+    line-height: 1 !important;
+    margin-top: 0 !important;
+  }
 }
 
 .countdown span {
@@ -435,21 +448,36 @@ nav {
   right: auto;
 }
 
+/* ALIGNEMENT PARFAIT MOBILE - Centrer l'image hero */
+@media (max-width: 768px) {
+  .phone-mockup {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+}
+
 .phone-image {
   width: 300px;
   max-width: 90%;
 }
 
-/* OPTIMISATION MOBILE - Réduire taille image téléphone */
+/* OPTIMISATION MOBILE - Agrandir l'image du téléphone pour meilleure visibilité */
 @media (max-width: 768px) {
   .phone-image {
-    width: 180px !important;
+    width: 240px !important;
+    display: block !important;
+    margin: 0 auto !important;
   }
 }
 
 @media (max-width: 480px) {
   .phone-image {
-    width: 160px !important;
+    width: 220px !important;
+    display: block !important;
+    margin: 0 auto !important;
   }
 }
 
@@ -499,11 +527,24 @@ nav {
 
 /* ========== FEATURES SECTION - Blanc ========== */
 .features {
-  padding: 4rem 0;
+  padding: 4rem 0 2rem 0;
   background: #FFFFFF;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   position: relative;
   z-index: 1;
+}
+
+/* Réduire le padding bas sur mobile */
+@media (max-width: 768px) {
+  .features {
+    padding: 3rem 0 1rem 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .features {
+    padding: 2rem 0 0.5rem 0 !important;
+  }
 }
 
 .features h2 {
@@ -521,6 +562,40 @@ nav {
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Réduire l'espace sous la dernière feature section */
+.feature-section:last-of-type {
+  margin-bottom: 2rem;
+}
+
+/* ALIGNEMENT PARFAIT MOBILE - Centrer les sections features */
+@media (max-width: 768px) {
+  .feature-section {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    padding: 0 1rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .feature-section:last-of-type {
+    margin-bottom: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-section {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .feature-section:last-of-type {
+    margin-bottom: 0.5rem !important;
+  }
+}
+  }
 }
 
 .feature-text {
@@ -549,9 +624,28 @@ nav {
   align-items: center;
 }
 
+/* ALIGNEMENT PARFAIT MOBILE - Centrer toutes les images features */
+@media (max-width: 768px) {
+  .feature-image {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+}
+
 .feature-img {
-  width: 300px;
+  width: 400px;
   max-width: 100%;
+}
+
+/* Taille pour tablettes */
+@media (max-width: 1200px) {
+  .feature-img {
+    width: 350px;
+  }
 }
 
 /* OPTIMISATION MOBILE - Agrandir les images features pour meilleure visibilité */
@@ -559,6 +653,8 @@ nav {
   .feature-img {
     width: 320px !important;
     max-width: 95% !important;
+    display: block !important;
+    margin: 0 auto !important;
   }
 }
 
@@ -566,6 +662,8 @@ nav {
   .feature-img {
     width: 280px !important;
     max-width: 90% !important;
+    display: block !important;
+    margin: 0 auto !important;
   }
 }
 
@@ -977,7 +1075,7 @@ img {
   }
   
   .feature-img {
-    width: 280px;
+    width: 320px;
   }
 }
 
@@ -995,11 +1093,13 @@ img {
     font-size: 0.8rem;
     padding: 0.6rem 0.5rem;
     top: 60px;
+    display: flex;
+    align-items: center;
   }
   
   .countdown {
-    font-size: 0.95rem;
-    margin-top: 0.25rem;
+    font-size: 0.8rem !important;
+    margin-top: 0 !important;
   }
   
   .nav-links {
@@ -1195,10 +1295,13 @@ img {
     font-size: 0.65rem !important;
     padding: 0.4rem 0.3rem !important;
     top: 50px !important;
+    display: flex;
+    align-items: center;
   }
   
   .countdown {
-    font-size: 0.75rem !important;
+    font-size: 0.65rem !important;
+    margin-top: 0 !important;
   }
   
   .container {
