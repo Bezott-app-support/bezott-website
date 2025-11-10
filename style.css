@@ -981,6 +981,128 @@ nav {
   color: #000000;
 }
 
+/* ========== EMAIL SIGNUP SECTION ========== */
+.email-signup {
+  padding: 0.5rem 0 4rem 0;
+  background: #E8E8E8;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.email-signup h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #000000;
+}
+
+.email-signup p {
+  font-size: 1.1rem;
+  color: #000000;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.email-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.email-form input[type="email"] {
+  flex: 1;
+  min-width: 250px;
+  padding: 0.875rem 1.25rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-family: 'Public Sans', sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.email-form input[type="email"]:focus {
+  border-color: #004aad;
+  box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
+}
+
+.email-submit-btn {
+  background-color: #004aad;
+  color: white;
+  padding: 0.875rem 1.75rem;
+  border-radius: 25px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  white-space: nowrap;
+}
+
+.email-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+.email-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive email section */
+@media (max-width: 768px) {
+  .email-signup {
+    padding: 0.5rem 0 3rem 0;
+  }
+
+  .email-signup h2 {
+    font-size: 1.6rem;
+  }
+
+  .email-signup p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .email-form {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+
+  .email-form input[type="email"] {
+    width: 100%;
+  }
+
+  .email-submit-btn {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .email-signup h2 {
+    font-size: 1.4rem;
+  }
+
+  .email-signup p {
+    font-size: 0.95rem;
+  }
+
+  .email-form input[type="email"] {
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .email-submit-btn {
+    font-size: 0.95rem;
+    padding: 0.75rem 1.25rem;
+  }
+}
+
 /* ========== EMPOWERMENT SECTION - Blanc (sans le clip-path bizarre) ========== */
 .empowerment {
   padding: 4rem 0;
