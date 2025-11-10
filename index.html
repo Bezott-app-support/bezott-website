@@ -36,13 +36,13 @@
     <div class="fomo-banner">
       <div class="fomo-scroll">
         <span class="fomo-content">
-          🔥 Black Friday Pre-Order Deal! Limited time offer ends in <span class="countdown" id="countdown"><span id="days">14</span> : <span id="hours">00</span> : <span id="minutes">00</span> : <span id="seconds">00</span></span> Don't miss out!
+          🔥 Black Friday Pre-Order Deal! Limited time offer ends in <span class="countdown" id="countdown"><span id="days">14</span> : <span id="hours">00</span> : <span id="minutes">00</span> : <span id="seconds">00</span></span> - Don't miss out!
         </span>
         <span class="fomo-content">
-          🔥 Black Friday Pre-Order Deal! Limited time offer ends in <span class="countdown" id="countdown2"><span id="days2">14</span> : <span id="hours2">00</span> : <span id="minutes2">00</span> : <span id="seconds2">00</span></span> Don't miss out!
+          🔥 Black Friday Pre-Order Deal! Limited time offer ends in <span class="countdown" id="countdown2"><span id="days2">14</span> : <span id="hours2">00</span> : <span id="minutes2">00</span> : <span id="seconds2">00</span></span> - Don't miss out!
         </span>
         <span class="fomo-content">
-          🔥 Black Friday Pre-Order Deal! Limited time offer ends in <span class="countdown" id="countdown3"><span id="days3">14</span> : <span id="hours3">00</span> : <span id="minutes3">00</span> : <span id="seconds3">00</span></span> Don't miss out!
+          🔥 Black Friday Pre-Order Deal! Limited time offer ends in <span class="countdown" id="countdown3"><span id="days3">14</span> : <span id="hours3">00</span> : <span id="minutes3">00</span> : <span id="seconds3">00</span></span> - Don't miss out!
         </span>
       </div>
     </div>
@@ -246,16 +246,24 @@
         function getEndDate() {
             // Check if we have a stored end date
             const storedEndDate = localStorage.getItem('bezottCountdownEnd');
+            const now = new Date();
             
             if (storedEndDate) {
-                return new Date(storedEndDate);
-            } else {
-                // First time - set end date to 14 days from now
-                const endDate = new Date();
-                endDate.setDate(endDate.getDate() + 14);
-                localStorage.setItem('bezottCountdownEnd', endDate.toISOString());
-                return endDate;
+                const savedDate = new Date(storedEndDate);
+                // Only use the stored date if it's still in the future
+                if (savedDate > now) {
+                    return savedDate;
+                } else {
+                    // If the stored date has passed, remove it
+                    localStorage.removeItem('bezottCountdownEnd');
+                }
             }
+            
+            // Set new end date to 14 days from now
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + 14);
+            localStorage.setItem('bezottCountdownEnd', endDate.toISOString());
+            return endDate;
         }
         
         const endDate = getEndDate();
