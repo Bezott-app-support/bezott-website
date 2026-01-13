@@ -1,31 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bezott - Your Digital Mental Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cookie-consent.css">
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-        <title>Bezott - Your Digital Mental Assistant</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="shortcut icon" href="/favicon.ico" />
+    <!-- Balise de vérification Google Search Console -->
+    <meta name="google-site-verification" content="eN0FWYNurMYz9KHifeGRj9ltxE77dLVbsVfrpYvqZzw" />
+    
+    <!-- Google Analytics - Chargé conditionnellement après consentement -->
+    <script>
+        // Fonction pour charger Google Analytics
+        function loadGoogleAnalytics() {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-NJMYXGRJE3';
+            document.head.appendChild(script);
+            
+            script.onload = function() {
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-NJMYXGRJE3', {
+                    'anonymize_ip': true
+                });
+            };
+        }
 
-        <!-- Balise de vérification Google Search Console -->
-        <meta name="google-site-verification" content="eN0FWYNurMYz9KHifeGRj9ltxE77dLVbsVfrpYvqZzw" />
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NJMYXGRJE3"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+        // Fonction pour charger Cloudflare Analytics
+        function loadCloudflareAnalytics() {
+            const script = document.createElement('script');
+            script.defer = true;
+            script.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+            script.setAttribute('data-cf-beacon', '{"token": "6563fcd7cadf48a5b5454632a0d9fd87"}');
+            document.head.appendChild(script);
+        }
 
-          gtag('config', 'G-NJMYXGRJE3');
-        </script>
-
-<!-- Cloudflare Web Analytics -->
-        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6563fcd7cadf48a5b5454632a0d9fd87"}'></script><!-- End Cloudflare Web Analytics -->
-        
-    </head>
+        // Vérifier le consentement au chargement de la page
+        window.addEventListener('DOMContentLoaded', function() {
+            const consent = localStorage.getItem('bezott_cookie_consent');
+            if (consent === 'accepted') {
+                loadGoogleAnalytics();
+                loadCloudflareAnalytics();
+            }
+        });
+    </script>
+</head>
 
 <body>
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsent" class="cookie-consent">
+        <div class="cookie-consent-content">
+            <div class="cookie-consent-text">
+                <h3>🍪 We value your privacy</h3>
+                <p>We use cookies to improve your experience and analyze site traffic. You can choose which cookies to accept.</p>
+            </div>
+            <div class="cookie-consent-buttons">
+                <button id="acceptAll" class="cookie-btn cookie-btn-accept">Accept All</button>
+                <button id="rejectAll" class="cookie-btn cookie-btn-reject">Reject All</button>
+                <button id="customizeBtn" class="cookie-btn cookie-btn-customize">Customize</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div id="cookieModal" class="cookie-modal">
+        <div class="cookie-modal-content">
+            <div class="cookie-modal-header">
+                <h2>Cookie Settings</h2>
+                <button id="closeModal" class="cookie-close">&times;</button>
+            </div>
+            <div class="cookie-modal-body">
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <div>
+                            <h3>Essential Cookies</h3>
+                            <p>Required for the website to function properly. Cannot be disabled.</p>
+                        </div>
+                        <label class="cookie-switch">
+                            <input type="checkbox" checked disabled>
+                            <span class="cookie-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <div>
+                            <h3>Analytics Cookies</h3>
+                            <p>Help us understand how visitors interact with our website (Google Analytics, Cloudflare Analytics).</p>
+                        </div>
+                        <label class="cookie-switch">
+                            <input type="checkbox" id="analyticsToggle">
+                            <span class="cookie-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="cookie-modal-footer">
+                <button id="savePreferences" class="cookie-btn cookie-btn-accept">Save Preferences</button>
+                <a href="privacy-policy.html" class="cookie-link">View Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Button (Always visible) -->
+    <button id="cookieSettingsBtn" class="cookie-settings-btn" aria-label="Cookie Settings">
+        🍪
+    </button>
+
     <header>
         <nav class="container">
             <div class="logo">
@@ -39,19 +125,7 @@
 
     <!-- FOMO Banner with Scrolling Animation -->
     <div class="fomo-banner">
-     <!--  <div class="fomo-scroll">
-        <span class="fomo-content">
-          🔥 Black Friday Pre-Order Deal! Limited time offer ends in <span class="countdown" id="countdown"><span id="days">14</span> : <span id="hours">00</span> : <span id="minutes">00</span> : <span id="seconds">00</span></span> - Don't miss out!
-        </span>
-        <span class="fomo-content">
-          🔥 Black Friday Pre-Order Deal! Limited time offer ends in <span class="countdown" id="countdown2"><span id="days2">14</span> : <span id="hours2">00</span> : <span id="minutes2">00</span> : <span id="seconds2">00</span></span> - Don't miss out!
-        </span>
-        <span class="fomo-content">
-          🔥 Black Friday Pre-Order Deal! Limited time offer ends in <span class="countdown" id="countdown3"><span id="days3">14</span> : <span id="hours3">00</span> : <span id="minutes3">00</span> : <span id="seconds3">00</span></span> - Don't miss out!
-        </span>
-      </div> -->
     </div>
-
 
     <section class="hero">
         <div class="container">
@@ -72,8 +146,8 @@
                 </div>
             </div>
             <div class="phone-mockup">
-                        <img src="Picture_0.png" alt="Bezott App Simulator" class="phone-image">
-                    </div>
+                <img src="Picture_0.png" alt="Bezott App Simulator" class="phone-image">
+            </div>
         </div>
     </section>
 
@@ -161,50 +235,48 @@
     </section>
 
     <section id="faq" class="faq">
-            <div class="container">
-                <h2>Questions? We've Got Answers</h2>
-                <div class="faq-accordion">
-                    <div class="faq-item">
-                        <button class="faq-question">How is Bezott different from other task apps?</button>
-                        <div class="faq-answer">
-                            <p>Unlike static to-do lists, Bezott understands that you're human. It adapts to your mood, energy, available time, task difficulty, and even your location to craft schedules that truly fit your life—letting you plan the next 7 days from today with maximum efficiency.</p>
-                        </div>
+        <div class="container">
+            <h2>Questions? We've Got Answers</h2>
+            <div class="faq-accordion">
+                <div class="faq-item">
+                    <button class="faq-question">How is Bezott different from other task apps?</button>
+                    <div class="faq-answer">
+                        <p>Unlike static to-do lists, Bezott understands that you're human. It adapts to your mood, energy, available time, task difficulty, and even your location to craft schedules that truly fit your life—letting you plan the next 7 days from today with maximum efficiency.</p>
                     </div>
-                    <div class="faq-item">
-                        <button class="faq-question">What happens when my plans change?</button>
-                        <div class="faq-answer">
-                            <p>One tap and Bezott instantly reschedules everything. No manual dragging and dropping—the system figures out the best new arrangement based on your updated situation.</p>
-                        </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What happens when my plans change?</button>
+                    <div class="faq-answer">
+                        <p>One tap and Bezott instantly reschedules everything. No manual dragging and dropping—the system figures out the best new arrangement based on your updated situation.</p>
                     </div>
-                    <div class="faq-item">
-                        <button class="faq-question">How does the mood tracking work?</button>
-                        <div class="faq-answer">
-                            <p>Simply select how you're feeling (energized, tired, focused, etc.) and Bezott adjusts your schedule accordingly. High-energy tasks when you're pumped, easier wins when you're drained.</p>
-                        </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">How does the mood tracking work?</button>
+                    <div class="faq-answer">
+                        <p>Simply select how you're feeling (energized, tired, focused, etc.) and Bezott adjusts your schedule accordingly. High-energy tasks when you're pumped, easier wins when you're drained.</p>
                     </div>
-                    <div class="faq-item">
-                        <button class="faq-question">Is my personal data safe?</button>
-                        <div class="faq-answer">
-                            <p>Absolutely. Your tasks, mood data, and personal information stay private and secure. We never share or sell your data. Period.</p>
-                        </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Is my personal data safe?</button>
+                    <div class="faq-answer">
+                        <p>Absolutely. Your tasks, mood data, and personal information stay private and secure. We never share or sell your data. Period.</p>
                     </div>
-                    <div class="faq-item">
-                        <button class="faq-question">Can I still add tasks manually?</button>
-                        <div class="faq-answer">
-                            <p>Of course! Add tasks however you want—manually, through voice notes, or by dumping everything at once. Bezott handles the organization automatically.</p>
-                        </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Can I still add tasks manually?</button>
+                    <div class="faq-answer">
+                        <p>Of course! Add tasks however you want—manually, through voice notes, or by dumping everything at once. Bezott handles the organization automatically.</p>
                     </div>
-                    <div class="faq-item">
-                        <button class="faq-question">What if I don't finish everything?</button>
-                        <div class="faq-answer">
-                            <p>No guilt trips here. Bezott automatically reschedules unfinished tasks to better times, learning from what you actually accomplish vs. what you plan.</p>
-                        </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What if I don't finish everything?</button>
+                    <div class="faq-answer">
+                        <p>No guilt trips here. Bezott automatically reschedules unfinished tasks to better times, learning from what you actually accomplish vs. what you plan.</p>
                     </div>
                 </div>
             </div>
-        </section>
-
-  
+        </div>
+    </section>
 
     <section class="email-signup">
         <div class="container">
@@ -226,15 +298,20 @@
     </section>
 
     <footer>
-           <div class="footer-container">
-               <div class="footer-text">© 2025 Bezott. All rights reserved.</div>
-               <div class="social-links">
-                   <a href="https://www.instagram.com/bezott_app"><img src="instagram.png" alt="Instagram" class="social-icon"></a>
-                   <a href="https://www.linkedin.com/company/bezott/"><img src="linkedin.png" alt="LinkedIn" class="social-icon"></a>
-               </div>
-           </div>
-       </footer>
+        <div class="footer-container">
+            <div class="footer-text">© 2025 Bezott. All rights reserved.</div>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="cookie-policy.html">Cookie Policy</a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/bezott_app"><img src="instagram.png" alt="Instagram" class="social-icon"></a>
+                <a href="https://www.linkedin.com/company/bezott/"><img src="linkedin.png" alt="LinkedIn" class="social-icon"></a>
+            </div>
+        </div>
+    </footer>
 
+    <script src="cookie-consent.js"></script>
     <script>
         // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(button => {
@@ -284,7 +361,7 @@
             pricePeriod.textContent = monthly.period;
             priceSavings.textContent = monthly.savings;
             oldPrice.textContent = monthly.oldPrice;
-            buyBtn.href = "https://buy.stripe.com/8x23cvcv9fQj0EQbTX1ZS00"; // lien mensuel
+            buyBtn.href = "https://buy.stripe.com/8x23cvcv9fQj0EQbTX1ZS00";
         });
 
         annualBtn.addEventListener('click', () => {
@@ -294,27 +371,23 @@
             pricePeriod.textContent = annual.period;
             priceSavings.textContent = annual.savings;
             oldPrice.textContent = annual.oldPrice;
-            buyBtn.href = "https://buy.stripe.com/8x23cvcv9fQj0EQbTX1ZS00"; // lien annuel
+            buyBtn.href = "https://buy.stripe.com/8x23cvcv9fQj0EQbTX1ZS00";
         });
 
-        // Countdown Timer - Updates all countdown instances and persists across page loads
+        // Countdown Timer
         function getEndDate() {
-            // Check if we have a stored end date
             const storedEndDate = localStorage.getItem('bezottCountdownEnd');
             const now = new Date();
             
             if (storedEndDate) {
                 const savedDate = new Date(storedEndDate);
-                // Only use the stored date if it's still in the future
                 if (savedDate > now) {
                     return savedDate;
                 } else {
-                    // If the stored date has passed, remove it
                     localStorage.removeItem('bezottCountdownEnd');
                 }
             }
             
-            // Set new end date to 14 days from now
             const endDate = new Date();
             endDate.setDate(endDate.getDate() + 14);
             localStorage.setItem('bezottCountdownEnd', endDate.toISOString());
@@ -332,7 +405,6 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
             
-            // Update all countdown instances
             for (let i = 1; i <= 3; i++) {
                 const suffix = i === 1 ? '' : i;
                 const daysEl = document.getElementById('days' + suffix);
