@@ -125,18 +125,25 @@
     <section id="pricing" class="pricing-section">
         <div class="container">
             <h2>Special Launch Offer 🚀</h2>
-            <p class="pricing-subtitle">Join us at the beginning and save big!</p>
+            <p class="pricing-subtitle">Choose your plan and save!</p>
             
             <div class="pricing-card">
                 <div class="pricing-badge">LIMITED TIME OFFER</div>
+                
+                <!-- Toggle Mensuel / Annuel -->
+                <div class="toggle-pricing">
+                    <button id="monthlyBtn" class="toggle-btn active">Monthly</button>
+                    <button id="annualBtn" class="toggle-btn">Annual</button>
+                </div>
+                
                 <div class="price-container">
-                    <div class="old-price">$60/year</div>
+                    <div class="old-price" id="oldPrice">$60/year</div>
                     <div class="new-price">
                         <span class="currency">$</span>
-                        <span class="amount">50</span>
-                        <span class="period">/year</span>
+                        <span class="amount" id="priceAmount">3.99</span>
+                        <span class="period" id="pricePeriod">/month</span>
                     </div>
-                    <div class="savings">Save $140 (70% OFF)</div>
+                    <div class="savings" id="priceSavings">–37% vs annual</div>
                 </div>
                 
                 <ul class="features-list">
@@ -147,7 +154,7 @@
                     <li>All future updates included</li>
                 </ul>
                 
-                <a href="https://buy.stripe.com/8x23cvcv9fQj0EQbTX1ZS00" class="pricing-cta">Claim Your Spot Now</a>
+                <a href="https://buy.stripe.com/8x23cvcv9fQj0EQbTX1ZS00" class="pricing-cta" id="buyBtn">Claim Your Spot Now</a>
                 <p class="pricing-note">⚡ Offer ends soon </p>
             </div>
         </div>
@@ -229,6 +236,7 @@
        </footer>
 
     <script>
+        // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(button => {
             button.addEventListener('click', () => {
                 const answer = button.nextElementSibling;
@@ -244,6 +252,49 @@
                     button.classList.add('active');
                 }
             });
+        });
+
+        // Pricing Toggle - Monthly / Annual
+        const monthlyBtn = document.getElementById('monthlyBtn');
+        const annualBtn = document.getElementById('annualBtn');
+        const priceAmount = document.getElementById('priceAmount');
+        const pricePeriod = document.getElementById('pricePeriod');
+        const priceSavings = document.getElementById('priceSavings');
+        const oldPrice = document.getElementById('oldPrice');
+        const buyBtn = document.getElementById('buyBtn');
+
+        const monthly = { 
+            amount: "3.99", 
+            period: "/month", 
+            savings: "–37% vs annual",
+            oldPrice: "$6.00/month"
+        };
+        
+        const annual = { 
+            amount: "29.99", 
+            period: "/year", 
+            savings: "Save 37% vs monthly",
+            oldPrice: "$47.88/year"
+        };
+
+        monthlyBtn.addEventListener('click', () => {
+            monthlyBtn.classList.add('active');
+            annualBtn.classList.remove('active');
+            priceAmount.textContent = monthly.amount;
+            pricePeriod.textContent = monthly.period;
+            priceSavings.textContent = monthly.savings;
+            oldPrice.textContent = monthly.oldPrice;
+            buyBtn.href = "https://buy.stripe.com/8x23cvcv9fQj0EQbTX1ZS00"; // lien mensuel
+        });
+
+        annualBtn.addEventListener('click', () => {
+            annualBtn.classList.add('active');
+            monthlyBtn.classList.remove('active');
+            priceAmount.textContent = annual.amount;
+            pricePeriod.textContent = annual.period;
+            priceSavings.textContent = annual.savings;
+            oldPrice.textContent = annual.oldPrice;
+            buyBtn.href = "https://buy.stripe.com/8x23cvcv9fQj0EQbTX1ZS00"; // lien annuel
         });
 
         // Countdown Timer - Updates all countdown instances and persists across page loads
