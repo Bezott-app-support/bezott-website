@@ -771,11 +771,20 @@ nav {
 /* Wrapper pour les cartes de pricing côte à côte */
 .pricing-cards-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  max-width: 1000px;
+  grid-template-columns: 1fr; /* Par défaut empilé sur mobile */
+  gap: 1.5rem;
+  max-width: 500px;
   margin: 0 auto;
   padding: 0 1rem;
+}
+
+/* Côte à côte sur desktop */
+@media (min-width: 769px) {
+  .pricing-cards-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
+  }
 }
 
 .pricing-card {
@@ -944,14 +953,8 @@ nav {
   color: #666666;
 }
 
-/* Responsive pricing - Empiler sur mobile */
+/* Responsive pricing - ajustements supplémentaires pour mobile */
 @media (max-width: 768px) {
-  .pricing-cards-wrapper {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    max-width: 500px;
-  }
-  
   .pricing-card {
     padding: 2rem 1.5rem;
   }
