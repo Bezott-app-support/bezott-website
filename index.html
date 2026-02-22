@@ -3,446 +3,461 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bezott - Your Digital Mental Assistant</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="cookie-consent.css">
+    <title>Bezott - Coming Soon</title>
     <link rel="shortcut icon" href="/favicon.ico" />
-
-    <!-- Balise de vérification Google Search Console -->
     <meta name="google-site-verification" content="eN0FWYNurMYz9KHifeGRj9ltxE77dLVbsVfrpYvqZzw" />
-    
-    <!-- Google Analytics - Chargé conditionnellement après consentement -->
-    <script>
-        // Fonction pour charger Google Analytics
-        function loadGoogleAnalytics() {
-            const script = document.createElement('script');
-            script.async = true;
-            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-NJMYXGRJE3';
-            document.head.appendChild(script);
-            
-            script.onload = function() {
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-NJMYXGRJE3', {
-                    'anonymize_ip': true
-                });
-            };
-        }
-
-        // Fonction pour charger Cloudflare Analytics
-        function loadCloudflareAnalytics() {
-            const script = document.createElement('script');
-            script.defer = true;
-            script.src = 'https://static.cloudflareinsights.com/beacon.min.js';
-            script.setAttribute('data-cf-beacon', '{"token": "6563fcd7cadf48a5b5454632a0d9fd87"}');
-            document.head.appendChild(script);
-        }
-
-        // Vérifier le consentement au chargement de la page
-        window.addEventListener('DOMContentLoaded', function() {
-            const consent = localStorage.getItem('bezott_cookie_consent');
-            if (consent === 'accepted') {
-                loadGoogleAnalytics();
-                loadCloudflareAnalytics();
-            }
-        });
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
     <style>
-        /* Availability Badge */
-        .availability-badge {
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue: #004aad;
+            --blue-light: #0057cc;
+            --gold: #FFD700;
+        }
+
+        html, body { height: 100%; overflow: hidden; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #000d24;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Animated background orbs */
+        .bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.3;
+            animation: drift 10s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, #004aad, transparent);
+            top: -200px; left: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, #0057cc, transparent);
+            bottom: -150px; right: -100px;
+            animation-delay: -4s;
+        }
+
+        .orb-3 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, #001f5c, transparent);
+            top: 40%; left: 40%;
+            animation-delay: -7s;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(40px, -50px); }
+            66% { transform: translate(-30px, 35px); }
+        }
+
+        .bg-grid {
+            position: fixed; inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 74, 173, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 74, 173, 0.07) 1px, transparent 1px);
+            background-size: 65px 65px;
+            z-index: 0;
+        }
+
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.75rem;
+        }
+
+        /* Logo */
+        .logo-wrap {
+            position: relative;
+            display: inline-block;
+            animation: fadeUp 0.9s ease 0.1s both;
+        }
+
+        .logo-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -30px;
+            background: radial-gradient(ellipse, rgba(0, 74, 173, 0.45), transparent 70%);
+            border-radius: 50%;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        .logo-img {
+            height: 72px;
+            width: auto;
+            display: block;
+            position: relative;
+            filter: brightness(0) invert(1);
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.12); }
+        }
+
+        /* Pill label */
+        .pill {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: linear-gradient(135deg, #e8f0fe, #d0e1ff);
-            border: 2px solid #004aad;
-            color: #004aad;
-            padding: 0.5rem 1.2rem;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            margin-bottom: 1.25rem;
-            letter-spacing: 0.3px;
-            box-shadow: 0 2px 10px rgba(0, 74, 173, 0.15);
+            background: rgba(0, 74, 173, 0.18);
+            border: 1px solid rgba(0, 74, 173, 0.45);
+            color: #7eb3ff;
+            padding: 0.4rem 1.1rem;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            backdrop-filter: blur(12px);
+            animation: fadeUp 0.9s ease 0.2s both;
         }
-        .availability-badge .badge-dot {
-            width: 10px;
-            height: 10px;
-            background: #004aad;
+
+        .pill-dot {
+            width: 6px; height: 6px;
+            background: #7eb3ff;
             border-radius: 50%;
-            animation: pulseDot 1.5s ease-in-out infinite;
-            flex-shrink: 0;
+            animation: blink 1.5s ease-in-out infinite;
         }
-        @keyframes pulseDot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.7); }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.15; }
         }
-        @media (max-width: 768px) {
-            .availability-badge {
-                font-size: 0.85rem;
-                padding: 0.4rem 1rem;
-                margin-bottom: 0.75rem;
-            }
+
+        /* Headline */
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.2rem, 5.5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 30%, #7eb3ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeUp 0.9s ease 0.3s both;
+        }
+
+        /* Date card */
+        .date-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.85rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 18px;
+            padding: 1rem 1.75rem;
+            backdrop-filter: blur(20px);
+            animation: fadeUp 0.9s ease 0.4s both;
+        }
+
+        .date-icon { font-size: 1.6rem; }
+
+        .date-info { text-align: left; }
+
+        .date-label {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 0.2rem;
+        }
+
+        .date-value {
+            display: block;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        /* Countdown */
+        .countdown {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            animation: fadeUp 0.9s ease 0.5s both;
+        }
+
+        .count-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 14px;
+            padding: 0.9rem 1.1rem;
+            min-width: 70px;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s;
+        }
+
+        .count-block:hover { border-color: rgba(0,74,173,0.55); }
+
+        .count-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .count-unit {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .sep {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.18);
+            padding-top: 0.8rem;
+        }
+
+        /* Email */
+        .email-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.7rem;
+            animation: fadeUp 0.9s ease 0.6s both;
+        }
+
+        .email-hint {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .email-row {
+            display: flex;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.11);
+            border-radius: 50px;
+            padding: 5px;
+            width: 100%;
+            max-width: 400px;
+            backdrop-filter: blur(12px);
+        }
+
+        .email-row input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.875rem;
+            padding: 0.55rem 1rem;
+        }
+
+        .email-row input::placeholder { color: rgba(255,255,255,0.25); }
+
+        .email-row button {
+            background: var(--blue);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.6rem 1.35rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            white-space: nowrap;
+        }
+
+        .email-row button:hover {
+            background: var(--blue-light);
+            transform: scale(1.03);
+        }
+
+        /* Socials */
+        .socials {
+            display: flex;
+            gap: 0.75rem;
+            animation: fadeUp 0.9s ease 0.7s both;
+        }
+
+        .soc {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 50%;
+            transition: all 0.25s;
+            text-decoration: none;
+        }
+
+        .soc:hover {
+            background: rgba(0,74,173,0.25);
+            border-color: rgba(0,74,173,0.55);
+            transform: translateY(-3px);
+        }
+
+        .soc img {
+            width: 17px; height: 17px;
+            filter: brightness(0) invert(1);
+            opacity: 0.65;
+            display: block;
+        }
+
+        /* Footer */
+        .foot {
+            position: fixed;
+            bottom: 1.25rem;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.18);
+            letter-spacing: 0.3px;
+            z-index: 1;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .content { gap: 1.35rem; }
+            .logo-img { height: 55px; }
+            h1 { font-size: 2rem; }
+            .countdown { gap: 0.4rem; }
+            .count-block { min-width: 58px; padding: 0.75rem 0.7rem; }
+            .count-num { font-size: 1.5rem; }
+            .sep { display: none; }
+            .date-card { padding: 0.8rem 1.2rem; }
+            .date-value { font-size: 1.05rem; }
         }
     </style>
 </head>
-
 <body>
-    <!-- Cookie Consent Banner -->
-    <div id="cookieConsent" class="cookie-consent">
-        <div class="cookie-consent-content">
-            <div class="cookie-consent-text">
-                <h3>🍪 We value your privacy</h3>
-                <p>We use cookies to improve your experience and analyze site traffic. You can choose which cookies to accept.</p>
-            </div>
-            <div class="cookie-consent-buttons">
-                <button id="acceptAll" class="cookie-btn cookie-btn-accept">Accept All</button>
-                <button id="rejectAll" class="cookie-btn cookie-btn-reject">Reject All</button>
-                <button id="customizeBtn" class="cookie-btn cookie-btn-customize">Customize</button>
-            </div>
-        </div>
+
+    <div class="bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
     </div>
+    <div class="bg-grid"></div>
 
-    <!-- Cookie Settings Modal -->
-    <div id="cookieModal" class="cookie-modal">
-        <div class="cookie-modal-content">
-            <div class="cookie-modal-header">
-                <h2>Cookie Settings</h2>
-                <button id="closeModal" class="cookie-close">&times;</button>
-            </div>
-            <div class="cookie-modal-body">
-                <div class="cookie-category">
-                    <div class="cookie-category-header">
-                        <div>
-                            <h3>Essential Cookies</h3>
-                            <p>Required for the website to function properly. Cannot be disabled.</p>
-                        </div>
-                        <label class="cookie-switch">
-                            <input type="checkbox" checked disabled>
-                            <span class="cookie-slider"></span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="cookie-category">
-                    <div class="cookie-category-header">
-                        <div>
-                            <h3>Analytics Cookies</h3>
-                            <p>Help us understand how visitors interact with our website (Google Analytics, Cloudflare Analytics).</p>
-                        </div>
-                        <label class="cookie-switch">
-                            <input type="checkbox" id="analyticsToggle">
-                            <span class="cookie-slider"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="cookie-modal-footer">
-                <button id="savePreferences" class="cookie-btn cookie-btn-accept">Save Preferences</button>
-                <a href="privacy-policy.html" class="cookie-link">View Privacy Policy</a>
+    <div class="content">
+
+        <div class="logo-wrap">
+            <img src="bezott_logo.svg" alt="Bezott" class="logo-img">
+        </div>
+
+        <div class="pill">
+            <span class="pill-dot"></span>
+            Coming Soon
+        </div>
+
+        <h1>Something big<br>is on its way.</h1>
+
+        <div class="date-card">
+            <span class="date-icon">🚀</span>
+            <div class="date-info">
+                <span class="date-label">Launch date</span>
+                <span class="date-value">February 26, 2025</span>
             </div>
         </div>
-    </div>
 
-    <!-- Cookie Settings Button (Always visible) -->
-    <button id="cookieSettingsBtn" class="cookie-settings-btn" aria-label="Cookie Settings">
-        🍪
-    </button>
-
-    <header>
-        <nav class="container">
-            <div class="logo">
-                <img src="bezott_logo.svg" alt="Bezott Logo">
+        <div class="countdown">
+            <div class="count-block">
+                <span class="count-num" id="days">00</span>
+                <span class="count-unit">Days</span>
             </div>
-            <div class="nav-links">
-                <a href="https://buy.stripe.com/8x23cvcv9fQj0EQbTX1ZS00" class="download-btn">Claim early price</a>
+            <span class="sep">:</span>
+            <div class="count-block">
+                <span class="count-num" id="hours">00</span>
+                <span class="count-unit">Hours</span>
             </div>
-        </nav>
-    </header>
-
-    <!-- FOMO Banner with Scrolling Animation -->
-    <div class="fomo-banner">
-    </div>
-
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <!-- Availability Badge -->
-                <div class="availability-badge">
-                    <span class="badge-dot"></span>
-                    🚀 Available on February 26, 2025
-                </div>
-
-                <h1>Simplify your day. Let Bezott bring order to the chaos.</h1>
-                <p>Bezott is your smart task assistant it helps you capture your thoughts and builds a schedule that fits your real life.</p>
-               
-                <a href="https://buy.stripe.com/8x23cvcv9fQj0EQbTX1ZS00" class="cta-btn">Pre-order Bezott. Save 30%. Stay ahead.</a>
-                
-                <!-- Store Badges -->
-                <div class="platform-badges">
-                    <a href="#" class="store-badge">
-                        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
-                    </a>
-                    <a href="#" class="store-badge">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
-                    </a>
-                </div>
+            <span class="sep">:</span>
+            <div class="count-block">
+                <span class="count-num" id="minutes">00</span>
+                <span class="count-unit">Min</span>
             </div>
-            <div class="phone-mockup">
-                <img src="Picture_0.png" alt="Bezott App Simulator" class="phone-image">
+            <span class="sep">:</span>
+            <div class="count-block">
+                <span class="count-num" id="seconds">00</span>
+                <span class="count-unit">Sec</span>
             </div>
         </div>
-    </section>
 
-    <section class="features">
-        <div class="container">
-            <h2>What Makes Bezott Special ✨</h2>
-            <div class="feature-section">
-                <div class="feature-text">
-                    <h3>TAILORED SCHEDULING THAT FITS YOU</h3>
-                    <p>
-                      Your day is unique, your schedule should be too. Enjoy a personalized plan that adapts to your mood, priorities, and energy levels.
-                    </p>
-                </div>
-                <div class="feature-image right">
-                    <img src="Picture_2.png" alt="Scheduling Feature" class="feature-img">
-                </div>
-            </div>
-            <div class="feature-section">
-                <div class="feature-image left">
-                    <img src="Picture_3.png" alt="Scheduling Feature" class="feature-img">
-                </div>
-                <div class="feature-text">
-                    <h3>RESCHEDULE WITH EASE</h3>
-                    <p>
-                      Life changes fast. Adjust your tasks effortlessly whenever your plans or mood shift no stress, no hassle.
-                    </p>
-                </div>
-            </div>
-            <div class="feature-section">
-                <div class="feature-text">
-                    <h3>SMART PRIORITIZATION FOR MAXIMUM IMPACT</h3>
-                    <p>
-                      Organize your tasks by what truly matters, so you always focus on the right things at the right time.
-                    </p>
-                </div>
-                <div class="feature-image right">
-                    <img src="Picture_4.png" alt="Scheduling Feature" class="feature-img">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing-section">
-        <div class="container">
-            <h2>Special Launch Offer 🚀</h2>
-            <p class="pricing-subtitle">Choose your plan and save!</p>
-            
-            <div class="pricing-grid">
-                <!-- Monthly Plan -->
-                <div class="pricing-card">
-                    <h3 class="plan-title">Monthly</h3>
-                    
-                    <div class="price-container">
-                        <div class="new-price">
-                            <span class="currency">$</span>
-                            <span class="amount">4.99</span>
-                            <span class="period">/month</span>
-                        </div>
-                    </div>
-                    
-                    <ul class="features-list">
-                        <li>Unlimited task scheduling</li>
-                        <li>Smart mood-based planning</li>
-                        <li>One-tap rescheduling</li>
-                        <li>Priority support</li>
-                        <li>All future updates included</li>
-                    </ul>
-                    
-                    <a href="https://buy.stripe.com/aFa4gz8eTcE7afq2jn1ZS01" class="pricing-cta">Get Started</a>
-                    <p class="pricing-note">⚡ Cancel anytime</p>
-                </div>
-
-                <!-- Annual Plan -->
-                <div class="pricing-card featured">
-                    <div class="pricing-badge best-value">BEST VALUE</div>
-                    <h3 class="plan-title">Annual</h3>
-                    
-                    <div class="price-container">
-                        <div class="new-price">
-                            <span class="currency">$</span>
-                            <span class="amount">29.99</span>
-                            <span class="period">/year</span>
-                        </div>
-                    </div>
-                    
-                    <ul class="features-list">
-                        <li>Unlimited task scheduling</li>
-                        <li>Smart mood-based planning</li>
-                        <li>One-tap rescheduling</li>
-                        <li>Priority support</li>
-                        <li>All future updates included</li>
-                    </ul>
-                    
-                    <a href="https://buy.stripe.com/8x23cvcv9fQj0EQbTX1ZS00" class="pricing-cta">Get Started</a>
-                    <p class="pricing-note">⚡ ~$2.50/month billed yearly</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq" class="faq">
-        <div class="container">
-            <h2>Questions? We've Got Answers</h2>
-            <div class="faq-accordion">
-                <div class="faq-item">
-                    <button class="faq-question">How is Bezott different from other task apps?</button>
-                    <div class="faq-answer">
-                        <p>Unlike static to-do lists, Bezott understands that you're human. It adapts to your mood, energy, available time, task difficulty, and even your location to craft schedules that truly fit your life—letting you plan the next 7 days from today with maximum efficiency.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">What happens when my plans change?</button>
-                    <div class="faq-answer">
-                        <p>One tap and Bezott instantly reschedules everything. No manual dragging and dropping—the system figures out the best new arrangement based on your updated situation.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">How does the mood tracking work?</button>
-                    <div class="faq-answer">
-                        <p>Simply select how you're feeling (energized, tired, focused, etc.) and Bezott adjusts your schedule accordingly. High-energy tasks when you're pumped, easier wins when you're drained.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">Is my personal data safe?</button>
-                    <div class="faq-answer">
-                        <p>Absolutely. Your tasks, mood data, and personal information stay private and secure. We never share or sell your data. Period.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">Can I still add tasks manually?</button>
-                    <div class="faq-answer">
-                        <p>Of course! Add tasks however you want—manually, through voice notes, or by dumping everything at once. Bezott handles the organization automatically.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">What if I don't finish everything?</button>
-                    <div class="faq-answer">
-                        <p>No guilt trips here. Bezott automatically reschedules unfinished tasks to better times, learning from what you actually accomplish vs. what you plan.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="email-signup">
-        <div class="container">
-            <h2>Stay Updated 📬</h2>
-            <p>Be the first to know about new features, exclusive tips, and special offers.</p>
-            <form class="email-form" action="https://formspree.io/f/mrbrzwre" method="POST">
-                <input type="email" name="email" placeholder="Enter your email" required>
-                <button type="submit" class="email-submit-btn">Subscribe</button>
+        <div class="email-section">
+            <p class="email-hint">Get notified when we launch 👇</p>
+            <form class="email-row" action="https://formspree.io/f/mrbrzwre" method="POST">
+                <input type="email" name="email" placeholder="your@email.com" required>
+                <button type="submit">Notify me</button>
             </form>
         </div>
-    </section>
 
-    <section id="download" class="empowerment">
-        <div class="container">
-            <h2>Take back control of your day.</h2>
-            <p>Download Bezott to take control of your day and add a companion to share your journey.</p>
-            <a href="https://buy.stripe.com/8x23cvcv9fQj0EQbTX1ZS00" class="cta-btn">Pre-order Bezott. Save 30%. Stay ahead.</a>
+        <div class="socials">
+            <a href="https://www.instagram.com/bezott_app" class="soc" aria-label="Instagram">
+                <img src="instagram.png" alt="Instagram">
+            </a>
+            <a href="https://www.linkedin.com/company/bezott/" class="soc" aria-label="LinkedIn">
+                <img src="linkedin.png" alt="LinkedIn">
+            </a>
         </div>
-    </section>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-text">© 2025 Bezott. All rights reserved.</div>
-            <div class="footer-links">
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="cookie-policy.html">Cookie Policy</a>
-            </div>
-            <div class="social-links">
-                <a href="https://www.instagram.com/bezott_app"><img src="instagram.png" alt="Instagram" class="social-icon"></a>
-                <a href="https://www.linkedin.com/company/bezott/"><img src="linkedin.png" alt="LinkedIn" class="social-icon"></a>
-            </div>
-        </div>
-    </footer>
+    </div>
 
-    <script src="cookie-consent.js"></script>
+    <p class="foot">© 2025 Bezott. All rights reserved.</p>
+
     <script>
-        // FAQ Accordion
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const answer = button.nextElementSibling;
-                const isOpen = answer.style.maxHeight;
+        const launch = new Date('2025-02-26T00:00:00').getTime();
 
-                document.querySelectorAll('.faq-answer').forEach(ans => {
-                    ans.style.maxHeight = null;
-                    ans.previousElementSibling.classList.remove('active');
-                });
+        function tick() {
+            const diff = launch - Date.now();
+            const clamp = v => Math.max(0, v).toString().padStart(2, '0');
 
-                if (!isOpen) {
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                    button.classList.add('active');
-                }
-            });
-        });
-
-        // Countdown Timer
-        function getEndDate() {
-            const storedEndDate = localStorage.getItem('bezottCountdownEnd');
-            const now = new Date();
-            
-            if (storedEndDate) {
-                const savedDate = new Date(storedEndDate);
-                if (savedDate > now) {
-                    return savedDate;
-                } else {
-                    localStorage.removeItem('bezottCountdownEnd');
-                }
+            if (diff <= 0) {
+                ['days','hours','minutes','seconds'].forEach(id => document.getElementById(id).textContent = '00');
+                return;
             }
-            
-            const endDate = new Date();
-            endDate.setDate(endDate.getDate() + 14);
-            localStorage.setItem('bezottCountdownEnd', endDate.toISOString());
-            return endDate;
+
+            document.getElementById('days').textContent    = clamp(Math.floor(diff / 86400000));
+            document.getElementById('hours').textContent   = clamp(Math.floor((diff % 86400000) / 3600000));
+            document.getElementById('minutes').textContent = clamp(Math.floor((diff % 3600000) / 60000));
+            document.getElementById('seconds').textContent = clamp(Math.floor((diff % 60000) / 1000));
         }
-        
-        const endDate = getEndDate();
-        
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = endDate - now;
-            
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            for (let i = 1; i <= 3; i++) {
-                const suffix = i === 1 ? '' : i;
-                const daysEl = document.getElementById('days' + suffix);
-                const hoursEl = document.getElementById('hours' + suffix);
-                const minutesEl = document.getElementById('minutes' + suffix);
-                const secondsEl = document.getElementById('seconds' + suffix);
-                
-                if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
-                if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
-                if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
-                if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
-            }
-            
-            if (distance < 0) {
-                document.querySelectorAll('.countdown').forEach(el => {
-                    el.textContent = "OFFER ENDED!";
-                });
-            }
-        }
-        
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+
+        tick();
+        setInterval(tick, 1000);
     </script>
+
 </body>
 </html>
