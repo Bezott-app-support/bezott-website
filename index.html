@@ -48,6 +48,44 @@
             }
         });
     </script>
+
+    <style>
+        /* Availability Badge */
+        .availability-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #e8f0fe, #d0e1ff);
+            border: 2px solid #004aad;
+            color: #004aad;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+            letter-spacing: 0.3px;
+            box-shadow: 0 2px 10px rgba(0, 74, 173, 0.15);
+        }
+        .availability-badge .badge-dot {
+            width: 10px;
+            height: 10px;
+            background: #004aad;
+            border-radius: 50%;
+            animation: pulseDot 1.5s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.7); }
+        }
+        @media (max-width: 768px) {
+            .availability-badge {
+                font-size: 0.85rem;
+                padding: 0.4rem 1rem;
+                margin-bottom: 0.75rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -130,6 +168,12 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
+                <!-- Availability Badge -->
+                <div class="availability-badge">
+                    <span class="badge-dot"></span>
+                    🚀 Available on February 26, 2025
+                </div>
+
                 <h1>Simplify your day. Let Bezott bring order to the chaos.</h1>
                 <p>Bezott is your smart task assistant it helps you capture your thoughts and builds a schedule that fits your real life.</p>
                
