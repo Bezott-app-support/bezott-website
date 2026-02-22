@@ -18,22 +18,21 @@
             --gold: #FFD700;
         }
 
-        html, body { height: 100%; overflow: hidden; }
+        html { height: 100%; }
 
         body {
             font-family: 'DM Sans', sans-serif;
             background: #000d24;
             color: #ffffff;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* Animated background orbs */
-        .bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+        /* Background */
+        .bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
 
         .orb {
             position: absolute;
@@ -42,53 +41,47 @@
             opacity: 0.3;
             animation: drift 10s ease-in-out infinite;
         }
-
-        .orb-1 {
-            width: 700px; height: 700px;
-            background: radial-gradient(circle, #004aad, transparent);
-            top: -200px; left: -200px;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, #0057cc, transparent);
-            bottom: -150px; right: -100px;
-            animation-delay: -4s;
-        }
-
-        .orb-3 {
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, #001f5c, transparent);
-            top: 40%; left: 40%;
-            animation-delay: -7s;
-        }
+        .orb-1 { width: 700px; height: 700px; background: radial-gradient(circle, #004aad, transparent); top: -200px; left: -200px; animation-delay: 0s; }
+        .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, #0057cc, transparent); bottom: -150px; right: -100px; animation-delay: -4s; }
+        .orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, #001f5c, transparent); top: 40%; left: 40%; animation-delay: -7s; }
 
         @keyframes drift {
             0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(40px, -50px); }
-            66% { transform: translate(-30px, 35px); }
+            33%       { transform: translate(40px, -50px); }
+            66%       { transform: translate(-30px, 35px); }
         }
 
         .bg-grid {
             position: fixed; inset: 0;
             background-image:
-                linear-gradient(rgba(0, 74, 173, 0.07) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 74, 173, 0.07) 1px, transparent 1px);
+                linear-gradient(rgba(0,74,173,0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,74,173,0.07) 1px, transparent 1px);
             background-size: 65px 65px;
-            z-index: 0;
+            z-index: 0; pointer-events: none;
         }
 
-        /* Content */
-        .content {
+        /* Layout: main grows, footer sticks to bottom */
+        .page {
             position: relative;
             z-index: 1;
-            text-align: center;
-            padding: 2rem;
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem 2rem;
             gap: 1.75rem;
+            text-align: center;
+        }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            padding: 1.25rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.85rem;
         }
 
         /* Logo */
@@ -97,252 +90,151 @@
             display: inline-block;
             animation: fadeUp 0.9s ease 0.1s both;
         }
-
         .logo-wrap::before {
             content: '';
             position: absolute;
             inset: -30px;
-            background: radial-gradient(ellipse, rgba(0, 74, 173, 0.45), transparent 70%);
+            background: radial-gradient(ellipse, rgba(0,74,173,0.45), transparent 70%);
             border-radius: 50%;
             animation: glowPulse 3s ease-in-out infinite;
         }
-
         .logo-img {
-            height: 72px;
-            width: auto;
-            display: block;
-            position: relative;
+            height: 72px; width: auto;
+            display: block; position: relative;
             filter: brightness(0) invert(1);
         }
-
         @keyframes glowPulse {
             0%, 100% { opacity: 0.7; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.12); }
+            50%       { opacity: 1;   transform: scale(1.12); }
         }
 
-        /* Pill label */
+        /* Pill */
         .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(0, 74, 173, 0.18);
-            border: 1px solid rgba(0, 74, 173, 0.45);
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(0,74,173,0.18);
+            border: 1px solid rgba(0,74,173,0.45);
             color: #7eb3ff;
             padding: 0.4rem 1.1rem;
             border-radius: 100px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
+            font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 2.5px; text-transform: uppercase;
             backdrop-filter: blur(12px);
             animation: fadeUp 0.9s ease 0.2s both;
         }
-
         .pill-dot {
             width: 6px; height: 6px;
-            background: #7eb3ff;
-            border-radius: 50%;
+            background: #7eb3ff; border-radius: 50%;
             animation: blink 1.5s ease-in-out infinite;
         }
-
         @keyframes blink {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.15; }
+            50%       { opacity: 0.15; }
         }
 
         /* Headline */
         h1 {
             font-family: 'Syne', sans-serif;
             font-size: clamp(2.2rem, 5.5vw, 4rem);
-            font-weight: 800;
-            line-height: 1.08;
-            letter-spacing: -1px;
+            font-weight: 800; line-height: 1.08; letter-spacing: -1px;
             background: linear-gradient(135deg, #ffffff 30%, #7eb3ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
             animation: fadeUp 0.9s ease 0.3s both;
         }
 
         /* Date card */
         .date-card {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.85rem;
+            display: inline-flex; align-items: center; gap: 0.85rem;
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 18px;
-            padding: 1rem 1.75rem;
+            border-radius: 18px; padding: 1rem 1.75rem;
             backdrop-filter: blur(20px);
             animation: fadeUp 0.9s ease 0.4s both;
         }
-
         .date-icon { font-size: 1.6rem; }
-
         .date-info { text-align: left; }
-
         .date-label {
-            display: block;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.4);
-            margin-bottom: 0.2rem;
+            display: block; font-size: 0.65rem; font-weight: 600;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: rgba(255,255,255,0.4); margin-bottom: 0.2rem;
         }
-
         .date-value {
-            display: block;
-            font-family: 'Syne', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--gold);
+            display: block; font-family: 'Syne', sans-serif;
+            font-size: 1.25rem; font-weight: 700; color: var(--gold);
         }
 
         /* Countdown */
         .countdown {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
+            display: flex; align-items: flex-start; gap: 0.75rem;
             animation: fadeUp 0.9s ease 0.5s both;
         }
-
         .count-block {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.3rem;
+            display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.09);
-            border-radius: 14px;
-            padding: 0.9rem 1.1rem;
-            min-width: 70px;
-            backdrop-filter: blur(10px);
-            transition: border-color 0.3s;
+            border-radius: 14px; padding: 0.9rem 1.1rem; min-width: 70px;
+            backdrop-filter: blur(10px); transition: border-color 0.3s;
         }
-
         .count-block:hover { border-color: rgba(0,74,173,0.55); }
-
         .count-num {
             font-family: 'Syne', sans-serif;
-            font-size: 1.9rem;
-            font-weight: 800;
-            line-height: 1;
+            font-size: 1.9rem; font-weight: 800; line-height: 1;
         }
-
         .count-unit {
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.35);
+            font-size: 0.6rem; font-weight: 600; letter-spacing: 1.5px;
+            text-transform: uppercase; color: rgba(255,255,255,0.35);
         }
-
         .sep {
             font-family: 'Syne', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: rgba(255,255,255,0.18);
-            padding-top: 0.8rem;
+            font-size: 1.8rem; font-weight: 700;
+            color: rgba(255,255,255,0.18); padding-top: 0.8rem;
         }
 
         /* Email */
         .email-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.7rem;
+            display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
             animation: fadeUp 0.9s ease 0.6s both;
         }
-
-        .email-hint {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.4);
-        }
-
+        .email-hint { font-size: 0.85rem; color: rgba(255,255,255,0.4); }
         .email-row {
             display: flex;
             background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.11);
-            border-radius: 50px;
-            padding: 5px;
-            width: 100%;
-            max-width: 400px;
+            border-radius: 50px; padding: 5px;
+            width: 100%; max-width: 400px;
             backdrop-filter: blur(12px);
         }
-
         .email-row input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: white;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.875rem;
-            padding: 0.55rem 1rem;
+            flex: 1; background: transparent; border: none; outline: none;
+            color: white; font-family: 'DM Sans', sans-serif;
+            font-size: 0.875rem; padding: 0.55rem 1rem;
         }
-
         .email-row input::placeholder { color: rgba(255,255,255,0.25); }
-
         .email-row button {
-            background: var(--blue);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 0.6rem 1.35rem;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
-            white-space: nowrap;
+            background: var(--blue); color: white; border: none;
+            border-radius: 50px; padding: 0.6rem 1.35rem;
+            font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; transition: background 0.2s, transform 0.2s; white-space: nowrap;
         }
+        .email-row button:hover { background: var(--blue-light); transform: scale(1.03); }
 
-        .email-row button:hover {
-            background: var(--blue-light);
-            transform: scale(1.03);
-        }
-
-        /* Socials */
+        /* Footer socials + copyright */
         .socials {
-            display: flex;
-            gap: 0.75rem;
+            display: flex; gap: 0.75rem;
             animation: fadeUp 0.9s ease 0.7s both;
         }
-
         .soc {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             width: 40px; height: 40px;
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.09);
-            border-radius: 50%;
-            transition: all 0.25s;
-            text-decoration: none;
+            border-radius: 50%; transition: all 0.25s; text-decoration: none;
         }
+        .soc:hover { background: rgba(0,74,173,0.25); border-color: rgba(0,74,173,0.55); transform: translateY(-3px); }
+        .soc img { width: 17px; height: 17px; filter: brightness(0) invert(1); opacity: 0.65; display: block; }
 
-        .soc:hover {
-            background: rgba(0,74,173,0.25);
-            border-color: rgba(0,74,173,0.55);
-            transform: translateY(-3px);
-        }
-
-        .soc img {
-            width: 17px; height: 17px;
-            filter: brightness(0) invert(1);
-            opacity: 0.65;
-            display: block;
-        }
-
-        /* Footer */
-        .foot {
-            position: fixed;
-            bottom: 1.25rem;
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.18);
-            letter-spacing: 0.3px;
-            z-index: 1;
+        .copyright {
+            font-size: 0.7rem; color: rgba(255,255,255,0.2); letter-spacing: 0.3px;
+            animation: fadeUp 0.9s ease 0.8s both;
         }
 
         @keyframes fadeUp {
@@ -352,7 +244,7 @@
 
         /* Mobile */
         @media (max-width: 480px) {
-            .content { gap: 1.35rem; }
+            .page { gap: 1.35rem; padding: 2rem 1.5rem 1.5rem; }
             .logo-img { height: 55px; }
             h1 { font-size: 2rem; }
             .countdown { gap: 0.4rem; }
@@ -373,7 +265,8 @@
     </div>
     <div class="bg-grid"></div>
 
-    <div class="content">
+    <!-- MAIN CONTENT -->
+    <main class="page">
 
         <div class="logo-wrap">
             <img src="bezott_logo.svg" alt="Bezott" class="logo-img">
@@ -390,7 +283,7 @@
             <span class="date-icon">🚀</span>
             <div class="date-info">
                 <span class="date-label">Launch date</span>
-                <span class="date-value">February 26, 2025</span>
+                <span class="date-value">February 26, 2026</span>
             </div>
         </div>
 
@@ -424,6 +317,10 @@
             </form>
         </div>
 
+    </main>
+
+    <!-- FOOTER : socials + copyright bien séparés, jamais superposés -->
+    <footer>
         <div class="socials">
             <a href="https://www.instagram.com/bezott_app" class="soc" aria-label="Instagram">
                 <img src="instagram.png" alt="Instagram">
@@ -432,27 +329,41 @@
                 <img src="linkedin.png" alt="LinkedIn">
             </a>
         </div>
-
-    </div>
-
-    <p class="foot">© 2025 Bezott. All rights reserved.</p>
+        <p class="copyright">© 2026 Bezott. All rights reserved.</p>
+    </footer>
 
     <script>
-        const launch = new Date('2025-02-26T00:00:00').getTime();
+        // Date fixe de lancement : 26 février 2026 à minuit
+        // Stockée en localStorage pour ne JAMAIS changer entre les visites
+        const LAUNCH_KEY = 'bezott_launch_date';
+        const FIXED_LAUNCH = '2026-02-26T00:00:00';
+
+        // On vérifie si une date est déjà stockée
+        let stored = localStorage.getItem(LAUNCH_KEY);
+        if (!stored) {
+            // Première visite : on stocke la date fixe
+            localStorage.setItem(LAUNCH_KEY, FIXED_LAUNCH);
+            stored = FIXED_LAUNCH;
+        }
+
+        const launchTime = new Date(stored).getTime();
 
         function tick() {
-            const diff = launch - Date.now();
-            const clamp = v => Math.max(0, v).toString().padStart(2, '0');
+            const diff = launchTime - Date.now();
 
             if (diff <= 0) {
-                ['days','hours','minutes','seconds'].forEach(id => document.getElementById(id).textContent = '00');
+                ['days','hours','minutes','seconds'].forEach(id => {
+                    document.getElementById(id).textContent = '00';
+                });
                 return;
             }
 
-            document.getElementById('days').textContent    = clamp(Math.floor(diff / 86400000));
-            document.getElementById('hours').textContent   = clamp(Math.floor((diff % 86400000) / 3600000));
-            document.getElementById('minutes').textContent = clamp(Math.floor((diff % 3600000) / 60000));
-            document.getElementById('seconds').textContent = clamp(Math.floor((diff % 60000) / 1000));
+            const pad = v => Math.floor(v).toString().padStart(2, '0');
+
+            document.getElementById('days').textContent    = pad(diff / 86400000);
+            document.getElementById('hours').textContent   = pad((diff % 86400000) / 3600000);
+            document.getElementById('minutes').textContent = pad((diff % 3600000) / 60000);
+            document.getElementById('seconds').textContent = pad((diff % 60000) / 1000);
         }
 
         tick();
